@@ -23,18 +23,65 @@ button.addEventListener('click', function (){
 const parent = document.querySelector('.parent_block')
 const small = document.querySelector('.child_block')
 
-let position = 0
+let x = 0
+let y = 0
+let side = 0 // 0=право 1=вниз 2=влево 3=вверх
+const speed = 2
 
 function move () {
-  position += 2
+  const maxX = parent.offsetWidth - small.offsetWidth
+  const maxY = parent.offsetHeight - small.offsetHeight
 
-  small.style.left = `${position}px`
-
-  const maxPosition = parent.offsetWidth - small .offsetWidth
-
-  if (position < maxPosition) {
-    requestAnimationFrame(move)
+  if (side === 0) {
+    x += speed
+    if (x >= maxX) {x = maxX; side = 1} //вниз
+  } else if (side === 1) {
+    y += speed
+    if (y >= maxY) {y = maxY; side = 2} //влево
+  } else if (side === 2) {
+    x -= speed
+    if (x <= 0) {x = 0; side = 3}//вверх
+  } else if (side === 3) {
+    y -= speed
+    if (y <= 0) {y = 0; side = 0}//право
   }
+
+  small.style.left = `${x}px`
+  small.style.top = `${y}px`
+
+  requestAnimationFrame(move)
 }
 
 move()
+
+// <h3>Homework 2 </h3>
+
+
+const seconds = document.getElementById('seconds')
+const startBtn = document.getElementById('start')
+const stopBtn = document.getElementById('stop')
+const resetBtn = document.getElementById('reset')
+
+let count = 0
+let interval = null
+
+startBtn.addEventListener('click' , () => {
+  if (interval !== null) return
+
+  interval = setInterval(() => {
+    count++
+    seconds.textContent = count
+  } ,1000)
+})
+
+stopBtn.addEventListener('click' , () => {
+  clearInterval(interval)
+  interval = null
+})
+
+resetBtn.addEventListener('click', () => {
+  clearInterval(interval)
+  interval = null
+  count = 0
+  seconds.textContent = 0
+})
