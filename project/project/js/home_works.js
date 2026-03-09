@@ -85,3 +85,43 @@ resetBtn.addEventListener('click', () => {
   count = 0
   seconds.textContent = 0
 })
+
+// TAB SLIDER
+
+const tabContents = document.querySelectorAll('.tab_content_block')
+const tabButtons = document.querySelectorAll('.tab_content_item')
+let curTab = 0
+let autoTab = null
+
+tabButtons.forEach((button, index) => {
+  button.addEventListener('click', () => {
+    tabContents.forEach(content => content.classList.remove('tab_content_block_active'))
+    tabButtons.forEach(btn => btn.classList.remove('tab_content_item_active'))
+
+    tabContents[index].classList.add('tab_content_block_active')
+    tabButtons[index].classList.add('tab_content_item_active')
+
+    curTab = index
+
+    clearInterval(autoTab)
+    startAuto()
+  })
+})
+
+const startAuto = () => {
+  autoTab = setInterval(() => {
+    curTab++
+    if (curTab > tabContents.length - 1) curTab = 0
+
+    tabContents.forEach(content => content.classList.remove('tab_content_block_active'))
+    tabButtons.forEach(btn => btn.classList.remove('tab_content_item_active'))
+
+    tabContents[curTab].classList.add('tab_content_block_active')
+    tabButtons[curTab].classList.add('tab_content_item_active')
+  }, 3000)
+}
+
+tabContents[0].classList.add('tab_content_block_active')
+tabButtons[0].classList.add('tab_content_item_active')
+startAuto()
+
