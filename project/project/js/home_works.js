@@ -125,3 +125,55 @@ tabContents[0].classList.add('tab_content_block_active')
 tabButtons[0].classList.add('tab_content_item_active')
 startAuto()
 
+
+// Character List
+
+
+const charactersList = document.querySelector('.characters-list')
+
+const xhr = new XMLHttpRequest()
+xhr.open('GET', '../data/characters.json')
+
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    const characters = JSON.parse(xhr.responseText)
+
+    characters.forEach(character => {
+      const card = document.createElement('div')
+      card.classList.add('character-card')
+
+      card.innerHTML = `
+      <div class="character-photo">
+        <img src="${character.photo}" alt="${character.name}">
+      </div>
+      <h4>${character.name}</h4>
+      <p class="character-role">${character.role}</p>
+      <span class="character-status character-status--${character.status.toLocaleLowerCase()}">${character.status}</span>
+      `
+
+      charactersList.append(card)
+    })
+  }
+}
+
+xhr.onerror = function () {
+  console.log("Ошибка запроса!!!")
+}
+
+xhr.send()
+// Запрос
+const xhrAny = new XMLHttpRequest()
+xhrAny.open('GET', '../data/any.json')
+
+xhrAny.onload = function () {
+  if (xhrAny.status === 200){
+    const data = JSON.parse(xhrAny.responseText)
+    console.log(data)
+  }
+}
+
+xhrAny.onerror = function () {
+  console.log("Ошибка запроса !!")
+}
+
+xhrAny.send()

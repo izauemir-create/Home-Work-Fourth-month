@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Walter White",
+    "role": "Chemistry Teacher",
+    "status": "Dead"
+  },
+  {
+    "id": 2,
+    "name": "Jesse Pinkman",
+    "role": "Drug Cook",
+    "status": "Alive"
+  },
+  {
+    "id": 3,
+    "name": "Saul Goodman",
+    "role": "Lawyer",
+    "status": "Alive"
+  },
+  {
+    "id": 4,
+    "name": "Gus Fring",
+    "role": "Drug Lord",
+    "status": "Dead"
+  },
+  {
+    "id": 5,
+    "name": "Mike Ehrmantraut",
+    "role": "Cleaner",
+    "status": "Dead"
+  }
+]
