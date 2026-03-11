@@ -3,30 +3,35 @@
     "id": 1,
     "name": "Walter White",
     "role": "Chemistry Teacher",
-    "status": "Dead"
+    "status": "Dead",
+    "photo": "https://i.pinimg.com/736x/5a/7a/9a/5a7a9a40c8faca9644361017004e4aa2.jpg"
   },
   {
     "id": 2,
     "name": "Jesse Pinkman",
     "role": "Drug Cook",
-    "status": "Alive"
+    "status": "Alive",
+    "photo": "https://i.pinimg.com/1200x/da/11/da/da11da62331e958e485d94183f097023.jpg"
   },
   {
     "id": 3,
     "name": "Saul Goodman",
     "role": "Lawyer",
-    "status": "Alive"
+    "status": "Alive",
+    "photo": "https://i.pinimg.com/736x/59/1c/28/591c2827c1aebd98127095b5949a2326.jpg"
   },
   {
     "id": 4,
     "name": "Gus Fring",
     "role": "Drug Lord",
-    "status": "Dead"
+    "status": "Dead",
+    "photo": "https://i.pinimg.com/736x/38/b2/cc/38b2ccff2d68a78f015b9278ded83fdb.jpg"
   },
   {
     "id": 5,
     "name": "Mike Ehrmantraut",
     "role": "Cleaner",
-    "status": "Dead"
+    "status": "Dead",
+    "photo": "https://i.pinimg.com/1200x/b1/0a/92/b10a928e4440325971e5e938306d7a8b.jpg"
   }
 ]
