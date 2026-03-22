@@ -75,3 +75,22 @@ btnPrev.onclick = () => navigate(-1);
 
 // Карточка не пустая при загрузке
 fetchCard(cardId).then(renderCard);
+
+// Отдельный запрос через GET ЗАПРОС НА POSTS
+
+fetch('https://jsonplaceholder.typicode.com/posts')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error (`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(posts => {
+    console.log('Всего постов', posts.length);
+    console.log('Данные', posts);
+  })
+  .catch(error => {
+    console.error('Ошибка запроса:', error);
+  });
+
+
