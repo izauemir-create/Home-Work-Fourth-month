@@ -49,48 +49,57 @@ const btnPrev = document.querySelector('#btn-prev');
 const TOTAL = 200;
 let cardId = 1;
 
-function fetchCard(id) {
-  return fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
-    .then(r => r.json());
-}
-
-function renderCard(data) {
-  const { title, id, completed } = data;
+function renderCard (data) {
+  const {title, id, completed} = data
   cardBlock.innerHTML = `
     <p>${id} / ${TOTAL}</p>
     <p>${title}</p>
     <p>${completed}</p>
-  `;
+  `
 }
 
-function navigate(dir) {
-  cardId += dir;
-  if (cardId < 1) cardId = TOTAL;
-  if (cardId > TOTAL) cardId = 1;
-  fetchCard(cardId).then(renderCard);
+async  function fetchCard(id) {
+  try{
+    const response = await  fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
+
+    if (!response.ok) {
+      throw  new Error (`HTTP error! status: ${response.status}`)
+    }
+  const data = await response.json()
+    renderCard(data)
+} catch (error) {
+  console.error('Ошибка загрузки карточки:', error)
+  }
+}
+
+async function navigate(dir) {
+  cardId += dir
+  if (cardId < 1) cardId = TOTAL
+  if (cardId > TOTAL) cardId = 1
+  await fetchCard(cardId)
 }
 
 btnNext.onclick = () => navigate(1);
 btnPrev.onclick = () => navigate(-1);
-
-// Карточка не пустая при загрузке
-fetchCard(cardId).then(renderCard);
+fetchCard(cardId)
 
 // Отдельный запрос через GET ЗАПРОС НА POSTS
+async function fetchPosts() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts')
 
-fetch('https://jsonplaceholder.typicode.com/posts')
-  .then(response => {
     if (!response.ok) {
-      throw new Error (`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${response.status}`)
     }
-    return response.json();
-  })
-  .then(posts => {
-    console.log('Всего постов', posts.length);
-    console.log('Данные', posts);
-  })
-  .catch(error => {
-    console.error('Ошибка запроса:', error);
-  });
 
+    const posts = await response.json()
+    console.log('Всего постов', posts.length);
+    console.log('Данные', posts)
+
+  } catch(error) {
+    console.error('Ошибка запроса:', error);
+  }
+}
+
+fetchPosts()
 

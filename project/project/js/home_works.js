@@ -109,12 +109,9 @@ tabButtons.forEach((button, index) => {
   button.addEventListener('click', () => {
     tabContents.forEach(content => content.classList.remove('tab_content_block_active'))
     tabButtons.forEach(btn => btn.classList.remove('tab_content_item_active'))
-
     tabContents[index].classList.add('tab_content_block_active')
     tabButtons[index].classList.add('tab_content_item_active')
-
     curTab = index
-
     clearInterval(autoTab)
     startAuto()
   })
@@ -127,7 +124,6 @@ const startAuto = () => {
 
     tabContents.forEach(content => content.classList.remove('tab_content_block_active'))
     tabButtons.forEach(btn => btn.classList.remove('tab_content_item_active'))
-
     tabContents[curTab].classList.add('tab_content_block_active')
     tabButtons[curTab].classList.add('tab_content_item_active')
   }, 3000)
@@ -143,12 +139,15 @@ startAuto()
 
 const charactersList = document.querySelector('.characters-list')
 
-const xhr = new XMLHttpRequest()
-xhr.open('GET', '../data/characters.json')
+async function fetchCharacters() {
+  try{
+    const response = await  fetch('../data/characters.json')
 
-xhr.onload = function () {
-  if (xhr.status === 200) {
-    const characters = JSON.parse(xhr.responseText)
+    if (!response.ok) {
+      throw new Error (`HTTP error! status: ${response.status}`)
+    }
+
+    const characters = await  response.json()
 
     characters.forEach(character => {
       const card = document.createElement('div')
@@ -165,28 +164,25 @@ xhr.onload = function () {
 
       charactersList.append(card)
     })
+  } catch (error) {
+    console.error ('Ошибка загрузки персонажей:', error)
   }
 }
 
-xhr.onerror = function () {
-  console.log("Ошибка запроса!!!")
-}
+fetchCharacters()
 
-xhr.send()
 // Запрос
-const xhrAny = new XMLHttpRequest()
-xhrAny.open('GET', '../data/any.json')
 
-xhrAny.onload = function () {
-  if (xhrAny.status === 200) {
-    const data = JSON.parse(xhrAny.responseText)
+async function fetchAnyData() {
+  try{
+    const response = await  fetch('../data/any.json')
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+    const data = await  response.json()
     console.log(data)
+  } catch (error) {
+    console.error('Ошибка запроса:', error)
   }
 }
 
-xhrAny.onerror = function () {
-  console.log("Ошибка запроса !!")
-}
-
-xhrAny.send()
+fetchAnyData()
 
